@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+const db = require('./db')
 
 // logging middleware
 const morgan = require('morgan');
@@ -28,11 +30,18 @@ app.get('*', function (req, res) {
     res.status(err.status || 500).send(err.message || 'Internal server error.');
   });
 
-  
+
 const port = process.env.PORT || 3000; 
 
-app.listen(port, function () {
-  console.log("Knock, knock");
-  console.log("Who's there?");
-  console.log(`Your server, listening on port ${port}`);
-});
+const startListening = () => {
+    app.listen(port, function () {
+    console.log("Knock, knock");
+    console.log("Who's there?");
+    console.log(`Your server, listening on port ${port}`);
+    }) 
+};
+
+db.sync()  // sync our database
+  .then(function(){
+    startListening()
+  })
