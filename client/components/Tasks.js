@@ -1,12 +1,6 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {useDispatch, useSelector} from "react-redux";
-import get from "lodash/get";
-import isEqual from "lodash/isEqual";
+import React from 'react'
 
 export const Tasks = ({tasks}) => {
-    // const maxClaimed = useSelector(state => get(state, ["dashboards", "roles", role, "data", "maxClaimed"], 0));
     console.log("TASKS IN TASK COMPONENT", tasks)
 
   return (

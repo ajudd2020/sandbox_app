@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+    db: 
+        image: postgres
+        networks:
+            - myNetwork
+        ports: 
+            - "5433:5432"
+        environment: 
+            POSTGRES_USER: app_user
+            POSTGRES_PASSWORD: mysecretpassword
+            POSTGRES_DB: app_db
+        volumes: 
+            - test_app_data:/var/lib/postgresql/data
+
+    testapp:
+        build: 
+            context: ..
+            dockerfile: docker/Dockerfile
+        image: test-app:latest
+        ports: 
+            - "3000:3000"
+        depends_on: 
+            - db
+        networks:
+            - myNetwork
+        environment: 
+            DATABASE_URL: 'app_db'
+            DATABASE_USER: 'app_user'
+            DATABASE_PASSWORD: 'mysecretpassword'
+            DATABASE_HOST: 'db'
+    
+networks:
+    myNetwork:
+
+volumes: 
+    test_app_data:
