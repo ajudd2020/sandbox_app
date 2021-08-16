@@ -12,4 +12,6 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["node", "../server/index.js"]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
+
+CMD ["node", "server/index.js"]
